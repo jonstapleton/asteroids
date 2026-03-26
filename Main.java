@@ -55,6 +55,11 @@ public class Main extends PApplet {
       text("GAME OVER", 120, 400);
       noLoop();
     }
+
+    s.move(keys);
+
+    fill(255);
+    s.display();
   }
 
   public void keyPressed() {
