@@ -46,6 +46,8 @@ public class Main extends PApplet {
     }
 
     s.move(keys);
+
+    fill(255);
     s.display();
   }
 
