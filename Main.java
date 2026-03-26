@@ -2,17 +2,24 @@ import processing.core.PApplet;
 
 public class Main extends PApplet{
 
+
   Projectile[] proj;
   int i = 1;
+  Asteroid a;
+  Asteroid b;
+  Asteroid c;
 
   public void settings() {
-    size(400,400);
+    size(800,800);
   }
 
   public void setup() {
     //proj = new Projectile();
     proj = new Projectile[10];
     proj[0] = new Projectile(this);
+     a = new Asteroid(Asteroid.Size.LARGE, this);
+      b = new Asteroid(Asteroid.Size.MEDIUM, this);
+      c = new Asteroid(Asteroid.Size.SMALL, this);
   }
 
   public void draw() {
@@ -22,12 +29,22 @@ public class Main extends PApplet{
     for(int index=0;index<i;index++) {
       proj[index].display(this);
     }
+    a.Display(this);
+      b.Display(this);
+      c.Display(this);
+  
     
   if(keyPressed && key == 'z' && frameCount%6==0) {
       proj[i] = new Projectile(this);
       i = (i + 1)%10;
-    }
   }
+}
+
+    
+
+  
+
+   
 
   public static void main(String[] args) {
     String[] processingArgs = { "MySketch" };
