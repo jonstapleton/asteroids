@@ -1,4 +1,5 @@
-public class HUD {
+import processing.core.PApplet;
+public class HUD extends PApplet {
   int score;
   int health;
   
