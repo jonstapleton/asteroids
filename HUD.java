@@ -1,30 +1,35 @@
+import processing.core.PApplet;
+
+
 public class HUD {
   int score;
   int health;
+  // add text color
   
-  HUD(int s, int h){ 
-  score = s;
-  health = h;
+  HUD(int score, int h){ //add text color
+  // add text color
   }
  
-  void addScore(int amount){
+  public void addScore(int amount){
   score += amount;
   }
   
-  void takeDamage(){
-  health --;
+  public void takeDamage(){
+    if (health > 0) {
+        health--;
+    }
   }
   
-  void displayScore(){
-  fill(255);
-  textSize(50);
-  text(score, 24, 55);
+  public void displayScore(PApplet p){
+  p.fill(255);
+  p.textSize(50);
+  p.text(score, 24, 55);
   }
 
-  void displayHealth(){
+  public void displayHealth(PApplet p){
   for (int i = 0; i < health; i++) {
-      fill(255, 0, 0);
-      circle(50 + i * 60, 100, 40);
+      p.fill(255, 0, 0);
+      p.circle(50 + i * 60, 100, 40);
     }
   }
   
