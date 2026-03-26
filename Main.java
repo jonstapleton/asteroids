@@ -28,12 +28,12 @@ public class Main extends PApplet {
 
     hud.displayScore(this);
 
-    if (objectHit) {
+    if (objectHit == true) {
       hud.addScore(5);
       objectHit = false;
     }
 
-    if (playerHit) {
+    if (playerHit == true) {
       hud.takeDamage();
     }
     

@@ -6,8 +6,10 @@ public class HUD {
   int health;
   // add text color
   
-  HUD(int score, int h){ //add text color
+  HUD(int score, int health){ //add text color
   // add text color
+  this.health = health;
+  this.score = score;
   }
  
   public void addScore(int amount){
@@ -16,7 +18,7 @@ public class HUD {
   
   public void takeDamage(){
     if (health > 0) {
-        health--;
+        health -= 1;
     }
   }
   
