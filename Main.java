@@ -93,7 +93,3 @@ public class Main extends PApplet {
   }
 }
 
-// <<<<<<< HEAD
-// =======
-// // comment
-// >>>>>>> Ben

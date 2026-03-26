@@ -1,6 +1,5 @@
 import processing.core.PApplet;
 
-
 public class HUD {
   int score;
   int health;
@@ -22,7 +21,7 @@ public class HUD {
     }
   }
   
-  public void displayScore(PApplet p){
+  public void displayScoreh(PApplet p){
   p.fill(255);
   p.textSize(50);
   p.text(score, 24, 55);
@@ -32,11 +31,17 @@ public class HUD {
   for (int i = 0; i < health; i++) {
       p.fill(255, 0, 0);
       p.circle(50 + i * 60, 100, 40);
-    }
   }
-  
+  }
+
+  public void displayScore(PApplet p) {
+    p.fill(255);
+    p.textSize(50);
+    p.text(score, 24, 55);
+  }
+
   boolean died() {
-  return health < 1;
+    return health < 1;
   }
 
 }
