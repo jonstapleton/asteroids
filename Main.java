@@ -4,6 +4,10 @@ public class Main extends PApplet {
   Ship s;
   boolean[] keys = new boolean[3];
 
+  Asteroid a;
+  Asteroid b;
+  Asteroid c;
+
   public void settings() {
     size(1000, 700);
     s = new Ship(300f, 300f, 0f, 0f, 4.71f, 20f, 2.7f, this);
@@ -12,10 +16,21 @@ public class Main extends PApplet {
     keys[2] = false;
   }
 
+  public void setup() {
+    a = new Asteroid(Asteroid.Size.LARGE, this);
+    b = new Asteroid(Asteroid.Size.MEDIUM, this);
+    c = new Asteroid(Asteroid.Size.SMALL, this);
+  }
+
   public void draw() {
     background(255);
     s.move(keys);
     s.display();
+
+    //Asteroids
+    a.Display(this);
+    b.Display(this);
+    c.Display(this);
   }
 
 public void keyPressed() {
