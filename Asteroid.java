@@ -13,6 +13,11 @@ class Asteroid {
   float increment = 0.15f;
   int limit = 0;
   float minimum = 0;
+
+  float dis_x, dis_y;
+  float ship_distance;
+
+  PApplet p;
   
   @SuppressWarnings("static-access")
 
@@ -20,6 +25,9 @@ class Asteroid {
         
     x = p.random(100, p.width - 100);
     y = p.random(100, p.height - 100);
+    
+
+    this.p = p;
 
     switch(type) {
     
@@ -57,9 +65,17 @@ class Asteroid {
     s.endShape(p.CLOSE);
   }
   
-  void Display(PApplet p) {
+  @SuppressWarnings("static-access")
+
+  void Display(float dis_x, float dis_y) {
     // p.circle(x, y, radius * 2 + limit);
     p.shape(s, x, y);
+
+    this.dis_x = dis_x;
+    this.dis_y = dis_y;
+
+    ship_distance = p.dist(dis_x, dis_y, x, y);
+
   }
   
 }

@@ -1,57 +1,83 @@
 import processing.core.PApplet;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Main extends PApplet {
+
+  //Ship
+
   Ship s;
   boolean[] keys = new boolean[3];
+  
+  //----
 
-  Projectile[] proj;
-  int i = 1;
-  Asteroid a;
-  Asteroid b;
-  Asteroid c;
+  //Asteroids
+
+  ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
+  float distance;
+
+  //----
 
   public void settings() {
-    size(1000, 700);
-    s = new Ship(300f, 300f, 0f, 0f, 4.71f, 20f, 2.7f, this);
-    keys[0] = false;
-    keys[1] = false;
-    keys[2] = false;
+    size(1000, 1000);
   }
 
   public void setup() {
 
-    //proj = new Projectile();
-    proj = new Projectile[10];
-    proj[0] = new Projectile(this);
+    //Ship
 
-    a = new Asteroid(Asteroid.Size.LARGE, this);
-    b = new Asteroid(Asteroid.Size.MEDIUM, this);
-    c = new Asteroid(Asteroid.Size.SMALL, this);
+    s = new Ship(300f, 300f, 0f, 0f, 4.71f, 20f, 2.7f, this);
+    keys[0] = false;
+    keys[1] = false;
+    keys[2] = false;
+
+    //----
+
+    //Asteroids
+
+    for(int i = 0; i < 3; i++) {
+      Asteroid a = new Asteroid(Asteroid.Size.LARGE, this);
+      asteroids.add(a);
+    }
+
   }
 
   public void draw() {
     background(255);
 
+    //Ship
+
     s.move(keys);
     s.display();
 
-    ellipse(200,200,40,40);
-    //proj[0].display();
-
-    for(int index=0;index<i;index++) {
-      proj[index].display(this);
-    }
-
-    if(keyPressed && key == 'z' && frameCount%6==0) {
-      proj[i] = new Projectile(this);
-      i = (i + 1)%10;
-  }
+    //----
 
     //Asteroids
-    a.Display(this);
-    b.Display(this);
-    c.Display(this);
+
+    for(int i = 0; i < asteroids.size(); i++) {
+      asteroids.get(i).Display(s.ship_center_x, s.ship_center_y);
+    }
+
+    Comparator<Asteroid> com = new Comparator<Asteroid>() {
+      public int compare(Asteroid i, Asteroid j) {
+        if(i.ship_distance > j.ship_distance) {
+          return 1;
+        } else {
+          return -1;
+        }
+      }
+    };
+
+    Collections.sort(asteroids, com);
+
+    line(asteroids.get(0).x, asteroids.get(0).y, s.ship_center_x, s.ship_center_y);
+
+    //----
+
   }
+
+  //Ship
 
   public void keyPressed() {
     int[] dirs = { UP, LEFT, RIGHT };
@@ -69,8 +95,9 @@ public class Main extends PApplet {
         keys[i] = false;
       }
     }
-  }  
-    
+  }
+
+  //-----------------------------------------------------
 
   public static void main(String[] args) {
     String[] processingArgs = { "MySketch" };

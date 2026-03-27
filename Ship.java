@@ -23,6 +23,7 @@ public class Ship{
   }
   
   // keys must be at least length 3
+  @SuppressWarnings("static-access")
   void move(boolean[] keys) {
     if (keys[0]) {
       ship_velocity_x += 0.4*p.cos(ship_angle);
@@ -57,6 +58,7 @@ public class Ship{
     ship_velocity_x *= 0.97;
     ship_velocity_y *= 0.97;
   }
+  @SuppressWarnings("static-access")
   void display() {
     float ship_x1 = (ship_size * p.cos(ship_angle)) + ship_center_x;
     float ship_y1 = (ship_size * p.sin(ship_angle)) + ship_center_y;
