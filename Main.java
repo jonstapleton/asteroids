@@ -2,7 +2,6 @@ import processing.core.PApplet;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.awt.geom.Area;
 
 public class Main extends PApplet {
 
@@ -10,8 +9,6 @@ public class Main extends PApplet {
 
   Ship s;
   boolean[] keys = new boolean[3];
-  
-  //----
 
   //Asteroids
 
@@ -32,8 +29,6 @@ public class Main extends PApplet {
     keys[1] = false;
     keys[2] = false;
 
-    //----
-
     //Asteroids
 
     for(int i = 0; i < 3; i++) {
@@ -50,8 +45,6 @@ public class Main extends PApplet {
     s.move(keys);
     s.display();
 
-    //----
-
     //Asteroids
 
     for(int i = 0; i < asteroids.size(); i++) {
@@ -64,8 +57,6 @@ public class Main extends PApplet {
     // line(asteroids.get(0).x, asteroids.get(0).y, s.ship_x1, s.ship_y1);
     // line(asteroids.get(0).x, asteroids.get(0).y, s.ship_x3, s.ship_y3);
     // line(asteroids.get(0).x, asteroids.get(0).y, s.ship_x2, s.ship_y2);
-
-    //----
   }
 
   public void crash_distance() {
@@ -126,5 +117,3 @@ public class Main extends PApplet {
     PApplet.runSketch(processingArgs, mySketch);
   }
 }
-
-// comment
