@@ -9,6 +9,13 @@ public class Ship{
   float ship_size;
   float ship_adjust;
 
+  float ship_x1;
+  float ship_y1;
+  float ship_x2;
+  float ship_y2;
+  float ship_x3;
+  float ship_y3;
+
   PApplet p;
 
   Ship(float Tship_center_x, float Tship_center_y, float Tship_velocity_x, float Tship_velocity_y, float Tship_angle, float Tship_size, float Tship_adjust, PApplet p) {
@@ -60,12 +67,12 @@ public class Ship{
   }
   @SuppressWarnings("static-access")
   void display() {
-    float ship_x1 = (ship_size * p.cos(ship_angle)) + ship_center_x;
-    float ship_y1 = (ship_size * p.sin(ship_angle)) + ship_center_y;
-    float ship_x2 = (ship_size * p.cos(ship_angle+ship_adjust)) + ship_center_x;
-    float ship_y2 = (ship_size * p.sin(ship_angle+ship_adjust)) + ship_center_y;
-    float ship_x3 = (ship_size * p.cos(ship_angle-ship_adjust)) + ship_center_x;
-    float ship_y3 = (ship_size * p.sin(ship_angle-ship_adjust)) + ship_center_y;
+    this.ship_x1 = (ship_size * p.cos(ship_angle)) + ship_center_x;
+    this.ship_y1 = (ship_size * p.sin(ship_angle)) + ship_center_y;
+    this.ship_x2 = (ship_size * p.cos(ship_angle+ship_adjust)) + ship_center_x;
+    this.ship_y2 = (ship_size * p.sin(ship_angle+ship_adjust)) + ship_center_y;
+    this.ship_x3 = (ship_size * p.cos(ship_angle-ship_adjust)) + ship_center_x;
+    this.ship_y3 = (ship_size * p.sin(ship_angle-ship_adjust)) + ship_center_y;
     p.triangle(ship_x1, ship_y1, ship_x2, ship_y2, ship_x3, ship_y3);
   }
 }

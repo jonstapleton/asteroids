@@ -24,7 +24,6 @@ public class Main extends PApplet {
   }
 
   public void setup() {
-
     //Ship
 
     s = new Ship(300f, 300f, 0f, 0f, 4.71f, 20f, 2.7f, this);
@@ -40,7 +39,6 @@ public class Main extends PApplet {
       Asteroid a = new Asteroid(Asteroid.Size.LARGE, this);
       asteroids.add(a);
     }
-
   }
 
   public void draw() {
@@ -59,6 +57,16 @@ public class Main extends PApplet {
       asteroids.get(i).Display(s.ship_center_x, s.ship_center_y);
     }
 
+    sort();
+
+    line(asteroids.get(0).x, asteroids.get(0).y, s.ship_center_x, s.ship_center_y);
+
+    //----
+  }
+
+  public void sort() {
+    //Sorting asteroids based off of distance from ship
+
     Comparator<Asteroid> com = new Comparator<Asteroid>() {
       public int compare(Asteroid i, Asteroid j) {
         if(i.ship_distance > j.ship_distance) {
@@ -70,14 +78,7 @@ public class Main extends PApplet {
     };
 
     Collections.sort(asteroids, com);
-
-    line(asteroids.get(0).x, asteroids.get(0).y, s.ship_center_x, s.ship_center_y);
-
-    //----
-
   }
-
-  //Ship
 
   public void keyPressed() {
     int[] dirs = { UP, LEFT, RIGHT };
@@ -96,9 +97,6 @@ public class Main extends PApplet {
       }
     }
   }
-
-  //-----------------------------------------------------
-
   public static void main(String[] args) {
     String[] processingArgs = { "MySketch" };
     Main mySketch = new Main();
