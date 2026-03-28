@@ -2,6 +2,7 @@ import processing.core.PApplet;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.awt.geom.Area;
 
 public class Main extends PApplet {
 
@@ -36,7 +37,7 @@ public class Main extends PApplet {
     //Asteroids
 
     for(int i = 0; i < 3; i++) {
-      Asteroid a = new Asteroid(Asteroid.Size.LARGE, this);
+      Asteroid a = new Asteroid(Asteroid.Size.SMALL, this);
       asteroids.add(a);
     }
   }
@@ -58,10 +59,32 @@ public class Main extends PApplet {
     }
 
     sort();
+    crash_distance();
 
-    line(asteroids.get(0).x, asteroids.get(0).y, s.ship_center_x, s.ship_center_y);
+    // line(asteroids.get(0).x, asteroids.get(0).y, s.ship_x1, s.ship_y1);
+    // line(asteroids.get(0).x, asteroids.get(0).y, s.ship_x3, s.ship_y3);
+    // line(asteroids.get(0).x, asteroids.get(0).y, s.ship_x2, s.ship_y2);
 
     //----
+  }
+
+  public void crash_distance() {
+
+    //Probably the easiest way to do this without losing my mind. I couldn't seem to get the math to work with the other method
+
+    if(dist(s.ship_x1, s.ship_y1, asteroids.get(0).x, asteroids.get(0).y) < asteroids.get(0).radius + asteroids.get(0).limit) {
+      fill(0);
+      text("hit", 30, 30);
+    }
+    if(dist(s.ship_x2, s.ship_y2, asteroids.get(0).x, asteroids.get(0).y) < asteroids.get(0).radius + asteroids.get(0).limit) {
+      fill(0);
+      text("hit", 30, 30);
+    }
+    if(dist(s.ship_x3, s.ship_y3, asteroids.get(0).x, asteroids.get(0).y) < asteroids.get(0).radius + asteroids.get(0).limit) {
+      fill(0);
+      text("hit", 30, 30);
+    }
+
   }
 
   public void sort() {
