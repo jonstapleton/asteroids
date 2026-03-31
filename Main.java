@@ -13,7 +13,6 @@ public class Main extends PApplet {
   //Asteroids
 
   ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
-  float distance;
 
   //----
 
@@ -35,6 +34,7 @@ public class Main extends PApplet {
       Asteroid a = new Asteroid(Asteroid.Size.SMALL, this);
       asteroids.add(a);
     }
+
   }
 
   public void draw() {
@@ -52,28 +52,31 @@ public class Main extends PApplet {
     }
 
     sort();
-    crash_distance();
+    collision_detection();
 
-    // line(asteroids.get(0).x, asteroids.get(0).y, s.ship_x1, s.ship_y1);
-    // line(asteroids.get(0).x, asteroids.get(0).y, s.ship_x3, s.ship_y3);
-    // line(asteroids.get(0).x, asteroids.get(0).y, s.ship_x2, s.ship_y2);
   }
 
-  public void crash_distance() {
+  public void collision_detection() {
 
-    //Probably the easiest way to do this without losing my mind. I couldn't seem to get the math to work with the other method
+    for(int i = 0; i <= 10; i++) {
+      float x1 = lerp(s.ship_x1, s.ship_x2, i/10.0f);
+      float y1 = lerp(s.ship_y1, s.ship_y2, i/10.0f);
 
-    if(dist(s.ship_x1, s.ship_y1, asteroids.get(0).x, asteroids.get(0).y) < asteroids.get(0).radius + asteroids.get(0).limit) {
-      fill(0);
-      text("hit", 30, 30);
-    }
-    if(dist(s.ship_x2, s.ship_y2, asteroids.get(0).x, asteroids.get(0).y) < asteroids.get(0).radius + asteroids.get(0).limit) {
-      fill(0);
-      text("hit", 30, 30);
-    }
-    if(dist(s.ship_x3, s.ship_y3, asteroids.get(0).x, asteroids.get(0).y) < asteroids.get(0).radius + asteroids.get(0).limit) {
-      fill(0);
-      text("hit", 30, 30);
+      float x2 = lerp(s.ship_x1, s.ship_x3, i/10.0f);
+      float y2 = lerp(s.ship_y1, s.ship_y3, i/10.0f);
+
+      float x3 = lerp(s.ship_x2, s.ship_x3, i/10.0f);
+      float y3 = lerp(s.ship_y2, s.ship_y3, i/10.0f);
+      
+      if(dist(x1, y1, asteroids.get(0).x, asteroids.get(0).y) < asteroids.get(0).radius + asteroids.get(0).limit) {
+        // explode();
+      }
+      if(dist(x2, y2, asteroids.get(0).x, asteroids.get(0).y) < asteroids.get(0).radius + asteroids.get(0).limit) {
+        // explode();
+      }
+      if(dist(x3, y3, asteroids.get(0).x, asteroids.get(0).y) < asteroids.get(0).radius + asteroids.get(0).limit) {
+        // explode();
+      }
     }
 
   }
