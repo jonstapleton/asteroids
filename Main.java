@@ -59,6 +59,9 @@ public class Main extends PApplet {
   public void collision_detection() {
 
     for(int i = 0; i <= 10; i++) {
+
+      //Collision detection for ship and asteroids
+
       float x1 = lerp(s.ship_x1, s.ship_x2, i/10.0f);
       float y1 = lerp(s.ship_y1, s.ship_y2, i/10.0f);
 
@@ -77,6 +80,10 @@ public class Main extends PApplet {
       if(dist(x3, y3, asteroids.get(0).x, asteroids.get(0).y) < asteroids.get(0).radius + asteroids.get(0).limit) {
         // explode();
       }
+
+      //Collision detection for laser and asteroids
+
+      
     }
 
   }
