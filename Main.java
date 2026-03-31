@@ -14,6 +14,11 @@ public class Main extends PApplet {
 
   ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
 
+  //Projectile
+
+  Projectile[] proj;
+  int i = 1;
+
   //----
 
   public void settings() {
@@ -35,6 +40,10 @@ public class Main extends PApplet {
       asteroids.add(a);
     }
 
+    //Projectile
+
+    proj = new Projectile[10];
+    proj[0] = new Projectile(s.ship_angle, s.ship_x1, s.ship_y1, this);
   }
 
   public void draw() {
@@ -53,6 +62,17 @@ public class Main extends PApplet {
 
     sort();
     collision_detection();
+
+    //Projectile
+    
+    for(int index = 0; index < i; index++) {
+      proj[index].display(this);
+    }
+
+    if(keyPressed && key == 'z' && frameCount%6==0) {
+      proj[i] = new Projectile(s.ship_angle, s.ship_x1, s.ship_y1, this);
+      i = (i + 1)%10;
+    }
 
   }
 
