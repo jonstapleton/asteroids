@@ -8,7 +8,7 @@ public class Main extends PApplet {
   //Ship
 
   Ship s;
-  boolean[] keys = new boolean[3];
+  boolean[] keys = new boolean[4];
 
   //Asteroids
 
@@ -29,9 +29,9 @@ public class Main extends PApplet {
     //Ship
 
     s = new Ship(300f, 300f, 0f, 0f, 4.71f, 20f, 2.7f, this);
-    keys[0] = false;
-    keys[1] = false;
-    keys[2] = false;
+    for(int i = 0; i < keys.length; i++) {
+      keys[i] = false;
+    }
 
     //Asteroids
 
@@ -69,7 +69,7 @@ public class Main extends PApplet {
       proj[index].display(this);
     }
 
-    if(keyPressed && key == 'z' && frameCount%6==0) {
+    if(keys[3] && frameCount%6==0) {
       proj[i] = new Projectile(s.ship_angle, s.ship_x1, s.ship_y1, this);
       i = (i + 1)%10;
     }
@@ -103,7 +103,6 @@ public class Main extends PApplet {
 
       //Collision detection for laser and asteroids
 
-      
     }
 
   }
@@ -125,7 +124,7 @@ public class Main extends PApplet {
   }
 
   public void keyPressed() {
-    int[] dirs = { UP, LEFT, RIGHT };
+    int[] dirs = { UP, LEFT, RIGHT, SHIFT };
     for (int i = 0; i < dirs.length; i++) {
       if (keyCode == dirs[i]) {
         keys[i] = true;
@@ -134,7 +133,7 @@ public class Main extends PApplet {
   }
 
   public void keyReleased() {
-    int[] dirs = { UP, LEFT, RIGHT };
+    int[] dirs = { UP, LEFT, RIGHT, SHIFT };
     for (int i = 0; i < dirs.length; i++) {
       if (keyCode == dirs[i]) {
         keys[i] = false;

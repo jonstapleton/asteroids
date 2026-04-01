@@ -1,7 +1,7 @@
 import processing.core.PApplet;
 
 public class Projectile {
-  float x, y;
+  float x, y; 
   float angle;
   double velocity_x, velocity_y;
   
@@ -15,7 +15,7 @@ public class Projectile {
 @SuppressWarnings("static-access")
 void display(PApplet p) {
 
-  p.line(x, y, x + p.cos(angle), y + p.sin(angle));
+  p.line(x, y, x + p.cos(angle) * 10, y + p.sin(angle) * 10);
   velocity_x = 5*p.cos(angle);
   velocity_y = 5*p.sin(angle);
 
