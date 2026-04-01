@@ -68,7 +68,7 @@ public class Main extends PApplet {
     for(int index = 0; index < i; index++) {
       proj[index].display(this);
     }
-
+                                                                          
     if(keys[3] && frameCount%6==0) {
       proj[i] = new Projectile(s.ship_angle, s.ship_x1, s.ship_y1, this);
       i = (i + 1)%10;
@@ -77,6 +77,19 @@ public class Main extends PApplet {
   }
 
   public void collision_detection() {
+
+    //Collision detection for laser and asteroids
+
+    for(int index = 0; index < i; index++) {
+      for(int j = 0; j < asteroids.size(); j++) {
+        if(dist(proj[index].x, proj[index].y, asteroids.get(j).x, asteroids.get(j).y) < asteroids.get(j).radius + asteroids.get(j).limit) {
+          push();
+          fill(0);
+          text("Hit", 30, 30);
+          pop();
+        }
+      }
+    }
 
     for(int i = 0; i <= 10; i++) {
 
@@ -100,8 +113,6 @@ public class Main extends PApplet {
       if(dist(x3, y3, asteroids.get(0).x, asteroids.get(0).y) < asteroids.get(0).radius + asteroids.get(0).limit) {
         // explode();
       }
-
-      //Collision detection for laser and asteroids
 
     }
 
