@@ -14,11 +14,12 @@ public class Main extends PApplet {
   //Projectile
 
   ArrayList<Projectile> proj = new ArrayList<Projectile>(20);
-  ArrayList<Projectile> to_remove = new ArrayList<>();
+  ArrayList<Projectile> to_remove_proj = new ArrayList<>();
 
   //Asteroids
 
   ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
+  ArrayList<Asteroid> to_remove_asteroids = new ArrayList<>();
 
   //----
 
@@ -59,6 +60,7 @@ public class Main extends PApplet {
     for(int index = 0; index < proj.size(); index++) {
       proj.get(index).display(this);
     }
+    
                                                                           
     if(keys[3] && frameCount%6==0) {
       proj.add(new Projectile(s, this));
@@ -79,22 +81,18 @@ public class Main extends PApplet {
 
     //Collision detection for laser and asteroids
 
-    // for(int index = 0; index < proj.size(); index++) {
-    //   for(int j = 0; j < asteroids.size(); j++) {
-    //     if(dist(proj.get(index).x, proj.get(index).y, asteroids.get(j).x, asteroids.get(j).y) < asteroids.get(j).radius + asteroids.get(j).limit) {        
-    //       asteroids.remove(j);
-    //       asteroids.add(new Asteroid(Asteroid.Size.MEDIUM, this));
-    //     }
-    //   }
-    // }
-
     for(Projectile p : proj) {
-      if(p.detect_collision(asteroids, this)) {
-        to_remove.add(p);
+      for(Asteroid a : asteroids) {
+        if(dist(p.x + cos(s.ship_angle) * 8, p.y + sin(s.ship_angle) * 8, a.x, a.y) < a.radius + a.limit) {
+          to_remove_proj.add(p);
+          to_remove_asteroids.add(a);
+        }
       }
     }
-    proj.removeAll(to_remove);
-    to_remove.clear();
+    proj.removeAll(to_remove_proj);
+    asteroids.removeAll(to_remove_asteroids);
+    to_remove_proj.clear();
+    to_remove_asteroids.clear();
 
     for(int i = 0; i <= 10; i++) {
 
