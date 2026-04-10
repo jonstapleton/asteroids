@@ -67,12 +67,12 @@ class Asteroid {
   
   @SuppressWarnings("static-access")
 
-  void Display(float dis_x, float dis_y) {
+  public void Display(Ship ship) {
     // p.circle(x, y, radius * 2 + limit);
     p.shape(s, x, y);
 
-    this.dis_x = dis_x;
-    this.dis_y = dis_y;
+    this.dis_x = ship.ship_center_x;
+    this.dis_y = ship.ship_center_y;
 
     ship_distance = p.dist(dis_x, dis_y, x, y);
 

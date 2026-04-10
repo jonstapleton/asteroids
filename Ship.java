@@ -18,7 +18,7 @@ public class Ship{
 
   PApplet p;
 
-  Ship(float Tship_center_x, float Tship_center_y, float Tship_velocity_x, float Tship_velocity_y, float Tship_angle, float Tship_size, float Tship_adjust, PApplet p) {
+  public Ship(float Tship_center_x, float Tship_center_y, float Tship_velocity_x, float Tship_velocity_y, float Tship_angle, float Tship_size, float Tship_adjust, PApplet p) {
     ship_center_x = Tship_center_x;
     ship_center_y = Tship_center_y;
     ship_velocity_x = Tship_velocity_x;
@@ -31,7 +31,7 @@ public class Ship{
   
   // keys must be at least length 3
   @SuppressWarnings("static-access")
-  void move(boolean[] keys) {
+  public void move(boolean[] keys) {
     if (keys[0]) {
       ship_velocity_x += 0.4*p.cos(ship_angle);
       ship_velocity_y += 0.4*p.sin(ship_angle);
@@ -66,7 +66,7 @@ public class Ship{
     ship_velocity_y *= 0.97;
   }
   @SuppressWarnings("static-access")
-  void display() {
+  public void display() {
     this.ship_x1 = (ship_size * p.cos(ship_angle)) + ship_center_x;
     this.ship_y1 = (ship_size * p.sin(ship_angle)) + ship_center_y;
     this.ship_x2 = (ship_size * p.cos(ship_angle+ship_adjust)) + ship_center_x;

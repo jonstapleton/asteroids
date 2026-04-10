@@ -1,5 +1,6 @@
 import processing.core.PApplet;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -10,14 +11,14 @@ public class Main extends PApplet {
   Ship s;
   boolean[] keys = new boolean[4];
 
+  //Projectile
+
+  ArrayList<Projectile> proj = new ArrayList<Projectile>(20);
+  ArrayList<Projectile> to_remove = new ArrayList<>();
+
   //Asteroids
 
   ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
-
-  //Projectile
-
-  Projectile[] proj;
-  int i = 1;
 
   //----
 
@@ -26,6 +27,9 @@ public class Main extends PApplet {
   }
 
   public void setup() {
+    stroke(255);
+    fill(0);
+
     //Ship
 
     s = new Ship(300f, 300f, 0f, 0f, 4.71f, 20f, 2.7f, this);
@@ -36,43 +40,38 @@ public class Main extends PApplet {
     //Asteroids
 
     for(int i = 0; i < 3; i++) {
-      Asteroid a = new Asteroid(Asteroid.Size.SMALL, this);
+      Asteroid a = new Asteroid(Asteroid.Size.LARGE, this);
       asteroids.add(a);
     }
 
-    //Projectile
-
-    proj = new Projectile[10];
-    proj[0] = new Projectile(s.ship_angle, s.ship_x1, s.ship_y1, this);
   }
 
   public void draw() {
-    background(255);
+    background(0);
 
     //Ship
 
     s.move(keys);
     s.display();
 
+    //Projectile
+    
+    for(int index = 0; index < proj.size(); index++) {
+      proj.get(index).display(this);
+    }
+                                                                          
+    if(keys[3] && frameCount%6==0) {
+      proj.add(new Projectile(s, this));
+    }
+
     //Asteroids
 
     for(int i = 0; i < asteroids.size(); i++) {
-      asteroids.get(i).Display(s.ship_center_x, s.ship_center_y);
+      asteroids.get(i).Display(s);
     }
 
     sort();
     collision_detection();
-
-    //Projectile
-    
-    for(int index = 0; index < i; index++) {
-      proj[index].display(this);
-    }
-                                                                          
-    if(keys[3] && frameCount%6==0) {
-      proj[i] = new Projectile(s.ship_angle, s.ship_x1, s.ship_y1, this);
-      i = (i + 1)%10;
-    }
 
   }
 
@@ -80,16 +79,22 @@ public class Main extends PApplet {
 
     //Collision detection for laser and asteroids
 
-    for(int index = 0; index < i; index++) {
-      for(int j = 0; j < asteroids.size(); j++) {
-        if(dist(proj[index].x, proj[index].y, asteroids.get(j).x, asteroids.get(j).y) < asteroids.get(j).radius + asteroids.get(j).limit) {
-          push();
-          fill(0);
-          text("Hit", 30, 30);
-          pop();
-        }
+    // for(int index = 0; index < proj.size(); index++) {
+    //   for(int j = 0; j < asteroids.size(); j++) {
+    //     if(dist(proj.get(index).x, proj.get(index).y, asteroids.get(j).x, asteroids.get(j).y) < asteroids.get(j).radius + asteroids.get(j).limit) {        
+    //       asteroids.remove(j);
+    //       asteroids.add(new Asteroid(Asteroid.Size.MEDIUM, this));
+    //     }
+    //   }
+    // }
+
+    for(Projectile p : proj) {
+      if(p.detect_collision(asteroids, this)) {
+        to_remove.add(p);
       }
     }
+    proj.removeAll(to_remove);
+    to_remove.clear();
 
     for(int i = 0; i <= 10; i++) {
 
@@ -105,13 +110,22 @@ public class Main extends PApplet {
       float y3 = lerp(s.ship_y2, s.ship_y3, i/10.0f);
       
       if(dist(x1, y1, asteroids.get(0).x, asteroids.get(0).y) < asteroids.get(0).radius + asteroids.get(0).limit) {
-        // explode();
+        s.ship_center_x = width/2;
+        s.ship_center_y = height/2;
+        s.ship_velocity_x = 0;
+        s.ship_velocity_y = 0;
       }
       if(dist(x2, y2, asteroids.get(0).x, asteroids.get(0).y) < asteroids.get(0).radius + asteroids.get(0).limit) {
-        // explode();
+        s.ship_center_x = width/2;
+        s.ship_center_y = height/2;
+        s.ship_velocity_x = 0;
+        s.ship_velocity_y = 0;
       }
       if(dist(x3, y3, asteroids.get(0).x, asteroids.get(0).y) < asteroids.get(0).radius + asteroids.get(0).limit) {
-        // explode();
+        s.ship_center_x = width/2;
+        s.ship_center_y = height/2;
+        s.ship_velocity_x = 0;
+        s.ship_velocity_y = 0;
       }
 
     }
