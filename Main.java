@@ -35,6 +35,7 @@ public class Main extends PApplet {
   }
 
   public void setup() {
+    smooth();
     stroke(255);
     fill(0);
 
@@ -56,7 +57,7 @@ public class Main extends PApplet {
     myFont = createFont("PixelifySans-VariableFont_wght.ttf", 50);
     textFont(myFont);
 
-    hud = new HUD(0, 3);  
+    hud = new HUD(0, 3, this);  
 
   }
 
@@ -79,6 +80,8 @@ public class Main extends PApplet {
       proj.add(new Projectile(s, this));
     }
 
+    projectile_culling();
+
     //Asteroids
 
     for(int i = 0; i < asteroids.size(); i++) {
@@ -91,6 +94,7 @@ public class Main extends PApplet {
     //Hud
 
     hud.displayScore(this);
+    hud.displayHealth(this);
 
     if (objectHit == true) {
       hud.addScore(5);
@@ -99,16 +103,13 @@ public class Main extends PApplet {
 
     if (playerHit == true) {
       hud.takeDamage();
+      playerHit = false;
     }
-    
-    hud.displayHealth(this);
-
-    playerHit = false;
     
     if (hud.died()) {
       fill(255);
       textSize(70);
-      text("GAME OVER", 120, 400);
+      text("GAME OVER", width/2 - 200, height/2);
       noLoop();
     }
 
@@ -185,6 +186,18 @@ public class Main extends PApplet {
     };
 
     Collections.sort(asteroids, com);
+  }
+
+  public void projectile_culling() {
+    //Remove any projectiles that exit screen
+
+    for(Projectile p : proj) {
+      if(p.x > width || p.y > height || p.x < -width || p.y < -height) {
+        to_remove_proj.add(p);
+      }
+    }
+    proj.removeAll(to_remove_proj);
+    to_remove_proj.clear();
   }
 
   public void keyPressed() {

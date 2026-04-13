@@ -1,14 +1,39 @@
 import processing.core.PApplet;
+import processing.core.PShape;
 
 public class HUD {
   int score;
   int health;
-  // add text color
+
+  PShape s;
   
-  HUD(int score, int health) { //add text color
+  @SuppressWarnings("static-access")
+  HUD(int score, int health, PApplet p) {
     // add text color
     this.health = health;
     this.score = score;
+
+    s = p.createShape();
+
+    s.beginShape();
+
+    s.fill(255, 0, 0);
+    s.curveVertex(0, 30);
+    s.curveVertex(-30, 0);
+    s.curveVertex(-30, -10);
+    s.curveVertex(-25, -20);
+    s.curveVertex(-20, -25);
+    s.curveVertex(-10, -25);
+    s.curveVertex(-5, -20);
+    s.curveVertex(0, -15);
+    s.curveVertex(5, -20);
+    s.curveVertex(10, -25);
+    s.curveVertex(20, -25);
+    s.curveVertex(25, -20);
+    s.curveVertex(30, -10);
+    s.curveVertex(30, 0);
+
+    s.endShape(p.CLOSE);
   }
  
   public void addScore(int amount){
@@ -23,10 +48,7 @@ public class HUD {
 
   public void displayHealth(PApplet p){
   for (int i = 0; i < health; i++) {
-    p.push();  
-    p.fill(255, 0, 0);
-    p.circle(50 + i * 60, 100, 40);
-    p.pop();
+    p.shape(s, 50 + i * 60, 100);
   }
   }
 
