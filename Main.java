@@ -88,6 +88,11 @@ public class Main extends PApplet {
       asteroids.get(i).Display(s);
     }
 
+    //Temporary to prevent crashes when destroying asteroids
+    if(asteroids.size() < 3) {
+      asteroids.add(new Asteroid(Asteroid.Size.MEDIUM, this));
+    }
+
     sort();
     collision_detection();
 
@@ -192,7 +197,7 @@ public class Main extends PApplet {
     //Remove any projectiles that exit screen
 
     for(Projectile p : proj) {
-      if(p.x > width || p.y > height || p.x < -width || p.y < -height) {
+      if(p.x > width || p.y > height || p.x < 0 || p.y < 0) {
         to_remove_proj.add(p);
       }
     }
