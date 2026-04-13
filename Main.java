@@ -2,6 +2,7 @@ import processing.core.PApplet;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import processing.core.PFont;
 
 public class Main extends PApplet {
 
@@ -20,7 +21,14 @@ public class Main extends PApplet {
   ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
   ArrayList<Asteroid> to_remove_asteroids = new ArrayList<>();
 
-  //----
+  //Hud
+
+  PFont myFont;
+
+  HUD hud;
+    
+  boolean playerHit = false;
+  boolean objectHit = false;
 
   public void settings() {
     size(1000, 1000);
@@ -43,6 +51,12 @@ public class Main extends PApplet {
       Asteroid a = new Asteroid(Asteroid.Size.LARGE, this);
       asteroids.add(a);
     }
+
+    //Hud
+    myFont = createFont("PixelifySans-VariableFont_wght.ttf", 50);
+    textFont(myFont);
+
+    hud = new HUD(0, 3);  
 
   }
 
@@ -73,6 +87,30 @@ public class Main extends PApplet {
 
     sort();
     collision_detection();
+
+    //Hud
+
+    hud.displayScore(this);
+
+    if (objectHit == true) {
+      hud.addScore(5);
+      objectHit = false;
+    }
+
+    if (playerHit == true) {
+      hud.takeDamage();
+    }
+    
+    hud.displayHealth(this);
+
+    playerHit = false;
+    
+    if (hud.died()) {
+      fill(255);
+      textSize(70);
+      text("GAME OVER", 120, 400);
+      noLoop();
+    }
 
   }
 
@@ -146,6 +184,15 @@ public class Main extends PApplet {
   }
 
   public void keyPressed() {
+
+    if (key == 'h') {
+      playerHit = true;
+    }
+    
+    if (key == 's') {
+      objectHit = true;
+    }
+
     int[] dirs = { UP, LEFT, RIGHT, SHIFT };
     for (int i = 0; i < dirs.length; i++) {
       if (keyCode == dirs[i]) {
@@ -153,7 +200,7 @@ public class Main extends PApplet {
       }
     }
   }
-
+  
   public void keyReleased() {
     int[] dirs = { UP, LEFT, RIGHT, SHIFT };
     for (int i = 0; i < dirs.length; i++) {
@@ -163,6 +210,7 @@ public class Main extends PApplet {
     }
   }
   public static void main(String[] args) {
+    PApplet.main("Main");
     String[] processingArgs = { "MySketch" };
     Main mySketch = new Main();
     PApplet.runSketch(processingArgs, mySketch);
