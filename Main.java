@@ -123,6 +123,7 @@ public class Main extends PApplet {
         if(dist(p.x + cos(s.ship_angle) * 8, p.y + sin(s.ship_angle) * 8, a.x, a.y) < a.radius + a.limit) {
           to_remove_proj.add(p);
           to_remove_asteroids.add(a);
+          objectHit = true;
         }
       }
     }
@@ -149,18 +150,21 @@ public class Main extends PApplet {
         s.ship_center_y = height/2;
         s.ship_velocity_x = 0;
         s.ship_velocity_y = 0;
+        playerHit = true;
       }
       if(dist(x2, y2, asteroids.get(0).x, asteroids.get(0).y) < asteroids.get(0).radius + asteroids.get(0).limit) {
         s.ship_center_x = width/2;
         s.ship_center_y = height/2;
         s.ship_velocity_x = 0;
         s.ship_velocity_y = 0;
+        playerHit = true;
       }
       if(dist(x3, y3, asteroids.get(0).x, asteroids.get(0).y) < asteroids.get(0).radius + asteroids.get(0).limit) {
         s.ship_center_x = width/2;
         s.ship_center_y = height/2;
         s.ship_velocity_x = 0;
         s.ship_velocity_y = 0;
+        playerHit = true;
       }
 
     }
@@ -184,15 +188,6 @@ public class Main extends PApplet {
   }
 
   public void keyPressed() {
-
-    if (key == 'h') {
-      playerHit = true;
-    }
-    
-    if (key == 's') {
-      objectHit = true;
-    }
-
     int[] dirs = { UP, LEFT, RIGHT, SHIFT };
     for (int i = 0; i < dirs.length; i++) {
       if (keyCode == dirs[i]) {
@@ -200,7 +195,7 @@ public class Main extends PApplet {
       }
     }
   }
-  
+
   public void keyReleased() {
     int[] dirs = { UP, LEFT, RIGHT, SHIFT };
     for (int i = 0; i < dirs.length; i++) {
