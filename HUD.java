@@ -32,6 +32,7 @@ public class HUD {
     s.curveVertex(25, -20);
     s.curveVertex(30, -10);
     s.curveVertex(30, 0);
+    s.scale(0.75f);
 
     s.endShape(p.CLOSE);
   }

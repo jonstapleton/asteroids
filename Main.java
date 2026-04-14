@@ -41,7 +41,7 @@ public class Main extends PApplet {
 
     //Ship
 
-    s = new Ship(300f, 300f, 0f, 0f, 4.71f, 20f, 2.7f, this);
+    s = new Ship(500f, 500f, 0f, 0f, 4.71f, 20f, 2.7f, this);
     for(int i = 0; i < keys.length; i++) {
       keys[i] = false;
     }
@@ -114,6 +114,7 @@ public class Main extends PApplet {
     if (hud.died()) {
       fill(255);
       textSize(70);
+      background(0);
       text("GAME OVER", width/2 - 200, height/2);
       noLoop();
     }
@@ -156,6 +157,7 @@ public class Main extends PApplet {
         s.ship_center_y = height/2;
         s.ship_velocity_x = 0;
         s.ship_velocity_y = 0;
+        s.ship_angle = 4.71f;
         playerHit = true;
       }
       if(dist(x2, y2, asteroids.get(0).x, asteroids.get(0).y) < asteroids.get(0).radius + asteroids.get(0).limit) {
@@ -163,6 +165,7 @@ public class Main extends PApplet {
         s.ship_center_y = height/2;
         s.ship_velocity_x = 0;
         s.ship_velocity_y = 0;
+        s.ship_angle = 4.71f;
         playerHit = true;
       }
       if(dist(x3, y3, asteroids.get(0).x, asteroids.get(0).y) < asteroids.get(0).radius + asteroids.get(0).limit) {
@@ -170,6 +173,7 @@ public class Main extends PApplet {
         s.ship_center_y = height/2;
         s.ship_velocity_x = 0;
         s.ship_velocity_y = 0;
+        s.ship_angle = 4.71f;
         playerHit = true;
       }
 
