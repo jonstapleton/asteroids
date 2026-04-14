@@ -1,4 +1,5 @@
 import processing.core.PShape;
+import processing.core.PVector;
 import processing.core.PApplet;
 
 class Asteroid {
@@ -9,6 +10,7 @@ class Asteroid {
   
   float radius = 0;
   float x, y;
+  PVector velocity = PVector.random2D();
   
   float increment = 0.15f;
   int limit = 0;
@@ -17,15 +19,18 @@ class Asteroid {
   float dis_x, dis_y;
   float ship_distance;
 
+  boolean is_large = false;
+  boolean is_medium = false;
+  boolean is_small = false;
+
   PApplet p;
   
   @SuppressWarnings("static-access")
 
-  public Asteroid(Size type, PApplet p) {
+  public Asteroid(Size type, float x, float y, PApplet p) {
         
-    x = p.random(100, p.width - 100);
-    y = p.random(100, p.height - 100);
-    
+    this.x = x;
+    this.y = y;
 
     this.p = p;
 
@@ -35,22 +40,25 @@ class Asteroid {
         this.radius = 50;
         this.limit = 10;
         this.minimum = -2;
+        this.is_large = true;
         break;
         
       case MEDIUM:
         this.radius = 30;
         this.limit = 10;
         this.minimum = -0.25f;
+        this.is_medium = true;
         break;
         
       case SMALL:
         this.radius = 15;
         this.limit = 5;
         this.minimum = -0.01f;
+        this.is_small = true;
         break;
       
     }
-    
+
     s = p.createShape();
     
     s.beginShape();
@@ -70,6 +78,22 @@ class Asteroid {
   public void Display(Ship ship) {
     // p.circle(x, y, radius * 2 + limit);
     p.shape(s, x, y);
+
+    x += velocity.x;
+    y += velocity.y;
+
+    if(x > p.width + (radius + limit)) {
+      x = 0 - (radius + limit);
+    }
+    if(y > p.height + (radius + limit)) {
+      y = 0 - (radius + limit);
+    }
+    if(x < 0 - (radius + limit)) {
+      x = p.width + (radius + limit);
+    }
+    if(y < 0 - (radius + limit)) {
+      y = p.height + (radius + limit);
+    }
 
     this.dis_x = ship.ship_center_x;
     this.dis_y = ship.ship_center_y;

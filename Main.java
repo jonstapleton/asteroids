@@ -21,6 +21,9 @@ public class Main extends PApplet {
   ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
   ArrayList<Asteroid> to_remove_asteroids = new ArrayList<>();
 
+  float temp_x = 0;
+  float temp_y = 0;
+
   //Hud
 
   PFont myFont;
@@ -28,7 +31,9 @@ public class Main extends PApplet {
   HUD hud;
     
   boolean playerHit = false;
-  boolean objectHit = false;
+  boolean objectHit_large = false;
+  boolean objectHit_medium = false;
+  boolean objectHit_small = false;
 
   public void settings() {
     size(1000, 1000);
@@ -49,7 +54,7 @@ public class Main extends PApplet {
     //Asteroids
 
     for(int i = 0; i < 3; i++) {
-      Asteroid a = new Asteroid(Asteroid.Size.LARGE, this);
+      Asteroid a = new Asteroid(Asteroid.Size.LARGE, random(width, width + 100), random(height, height + 100), this);
       asteroids.add(a);
     }
 
@@ -88,22 +93,25 @@ public class Main extends PApplet {
       asteroids.get(i).Display(s);
     }
 
-    //Temporary to prevent crashes when destroying asteroids
+    // Temporary to prevent crashes when destroying asteroids
     if(asteroids.size() < 3) {
-      asteroids.add(new Asteroid(Asteroid.Size.MEDIUM, this));
+      asteroids.add(new Asteroid(Asteroid.Size.LARGE, width + 200, height + 200, this));
     }
 
     sort();
     collision_detection();
+    asteroid_explode();
 
     //Hud
 
     hud.displayScore(this);
     hud.displayHealth(this);
 
-    if (objectHit == true) {
+    if (objectHit_large || objectHit_medium || objectHit_small) {
       hud.addScore(5);
-      objectHit = false;
+      objectHit_large = false;
+      objectHit_medium = false;
+      objectHit_small = false;
     }
 
     if (playerHit == true) {
@@ -130,7 +138,16 @@ public class Main extends PApplet {
         if(dist(p.x + cos(s.ship_angle) * 8, p.y + sin(s.ship_angle) * 8, a.x, a.y) < a.radius + a.limit) {
           to_remove_proj.add(p);
           to_remove_asteroids.add(a);
-          objectHit = true;
+          temp_x = a.x;
+          temp_y = a.y;
+
+          if(a.is_large) {
+            objectHit_large = true;
+          } else if(a.is_medium) {
+            objectHit_medium = true;
+          } else if(a.is_small) {
+            objectHit_small = true;
+          }
         }
       }
     }
@@ -195,6 +212,20 @@ public class Main extends PApplet {
     };
 
     Collections.sort(asteroids, com);
+  }
+
+  public void asteroid_explode() {
+    if(objectHit_large) {
+      for(int i = 0; i < 2; i++) {
+        asteroids.add(new Asteroid(Asteroid.Size.MEDIUM, temp_x, temp_y, this));
+      }
+    } else if(objectHit_medium) {
+      for(int i = 0; i < 2; i++) {
+        asteroids.add(new Asteroid(Asteroid.Size.SMALL, temp_x, temp_y, this));
+      }
+    }
+    temp_x = 0;
+    temp_y = 0;
   }
 
   public void projectile_culling() {
