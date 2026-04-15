@@ -36,7 +36,7 @@ public class Main extends PApplet {
   boolean objectHit_small = false;
 
   public void settings() {
-    size(1000, 1000);
+    size(600, 600);
   }
 
   public void setup() {
@@ -46,7 +46,7 @@ public class Main extends PApplet {
 
     //Ship
 
-    s = new Ship(500f, 500f, 0f, 0f, 4.71f, 20f, 2.7f, this);
+    s = new Ship(300f, 300f, 0f, 0f, 4.71f, 20f, 2.7f, this);
     for(int i = 0; i < keys.length; i++) {
       keys[i] = false;
     }
