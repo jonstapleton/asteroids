@@ -106,6 +106,7 @@ public class Main extends PApplet {
 
     hud.displayScore(this);
     hud.displayHealth(this);
+    hud.displayMap(this, s, asteroids);
 
     if (objectHit_large || objectHit_medium || objectHit_small) {
       hud.addScore(5);

@@ -1,17 +1,20 @@
 import processing.core.PApplet;
 import processing.core.PShape;
+import java.util.ArrayList;
 
 public class HUD {
   int score;
   int health;
 
   PShape s;
+  MiniMap m;
   
   @SuppressWarnings("static-access")
   HUD(int score, int health, PApplet p) {
     // add text color
     this.health = health;
     this.score = score;
+    m = new MiniMap();
 
     s = p.createShape();
 
@@ -59,6 +62,15 @@ public class HUD {
     p.textSize(50);
     p.text(score, 24, 55);
     p.pop();
+  }
+
+  public void displayMap(PApplet p, Ship s, ArrayList<Asteroid> a) {
+    m.display(p);
+    m.displayShip(p, s);
+
+    for(Asteroid i : a) {
+      m.displayAsteroids(p, i);
+    }
   }
 
   boolean died() {
