@@ -217,11 +217,11 @@ public class Main extends PApplet {
 
   public void asteroid_explode() {
     if(objectHit_large) {
-      for(int i = 0; i < 2; i++) {
+      for(int i = 0; i < random(2, 3); i++) {
         asteroids.add(new Asteroid(Asteroid.Size.MEDIUM, temp_x, temp_y, this));
       }
     } else if(objectHit_medium) {
-      for(int i = 0; i < 2; i++) {
+      for(int i = 0; i < random(2, 3); i++) {
         asteroids.add(new Asteroid(Asteroid.Size.SMALL, temp_x, temp_y, this));
       }
     }
